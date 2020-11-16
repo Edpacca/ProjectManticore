@@ -21,13 +21,26 @@ namespace ProjectManticore
 
         public void PrintStats()
         {
+            Console.Write("Name: ");
             Console.WriteLine(Name);
+            Console.Write("STR: ");
             Console.WriteLine(Strength);
+            Console.Write("DEX: ");
             Console.WriteLine(Dexterity);
+            Console.Write("CON: ");
             Console.WriteLine(Constitution);
+            Console.Write("INT: ");
             Console.WriteLine(Intelligence);
+            Console.Write("WIS: ");
             Console.WriteLine(Wisdom);
+            Console.Write("CHAR: ");
             Console.WriteLine(Charisma);
+            Console.Write("AC: ");
+            Console.WriteLine(ArmourClass);
+            Console.Write("CR: ");
+            Console.WriteLine(ChallengeRating);
+            Console.Write("HP: ");
+            Console.WriteLine(AvgHitPoints);
         }
     }
 }
