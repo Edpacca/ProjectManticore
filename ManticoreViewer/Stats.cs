@@ -18,5 +18,8 @@ namespace ManticoreViewer
         public float ChallengeRating { get; set; }
         public byte ArmourClass { get; set; }
         public int AvgHitPoints { get; set; }
+        public string Speed { get; set; }
+
+        public string ImgURL { get; set; }
     }
 }

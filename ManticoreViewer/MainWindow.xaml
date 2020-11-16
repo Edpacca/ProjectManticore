@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ManticoreViewer"
         mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light"
         Title="My Demo" Height="450" Width="800">
     <Grid>
@@ -13,7 +12,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="45" />
                 <ColumnDefinition Width="45" />
@@ -54,12 +53,21 @@
                  Grid.Column="2"
                  Grid.Row="2"
                  IsEditable="True"/>
-            <TextBox x:Name="ArmourClass" Grid.Column="2" Grid.Row="3"
+            <TextBlock x:Name="ArmourClass" 
+                       Text="{Binding ElementName = nameComboBox, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                       Grid.Column="2" Grid.Row="3"
                  Width="150"/>
-            <TextBox x:Name="HitPoints" Grid.Column="2" Grid.Row="4"
+            <TextBlock x:Name="HitPoints" 
+                     Text="{Binding ElementName = nameComboBox, Path = SelectedItem.AvgHitPoints, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                     Grid.Column="2" Grid.Row="4"
                  Width="150"/>
-            <TextBox x:Name="Speed" Grid.Column="2" Grid.Row="5"
+            <TextBlock x:Name="Speed" 
+                     Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                     Grid.Column="2" Grid.Row="5"
                  Width="150"/>
+            <Image   Source="{Binding ElementName = nameComboBox, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                     Grid.Column="2" Grid.Row="6"
+                 Width="Auto"/>
 
             <TextBlock Grid.Column="4" Grid.Row="1"
                    Text="STR" Margin="5,5,5,5"/>
@@ -75,18 +83,29 @@
                    Text="CHA" Margin="5,5,5,5"/>
 
             <TextBlock Grid.Column="4" Grid.Row="2"
-                   x:Name="STR" 
+                   x:Name="STR"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Strength, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="5" Grid.Row="2"
-                   x:Name="DEX" Margin="5,5,5,5"/>
+                   x:Name="DEX"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Dexterity, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
             <TextBlock Grid.Column="6" Grid.Row="2"
-                   x:Name="CON" Margin="5,5,5,5"/>
+                   x:Name="CON" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Constitution, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
             <TextBlock Grid.Column="7" Grid.Row="2"
-                   x:Name="INT" Margin="5,5,5,5"/>
+                   x:Name="INT"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Intelligence, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"   
+                   Margin="5,5,5,5"/>
             <TextBlock Grid.Column="8" Grid.Row="2"
-                   x:Name="WIS" Margin="5,5,5,5"/>
+                   x:Name="WIS" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Wisdom, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
             <TextBlock Grid.Column="9" Grid.Row="2"
-                   x:Name="CHA" Margin="5,5,5,5"/>
+                   x:Name="CHA" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
         </Grid>
     </Grid>
 </Window>

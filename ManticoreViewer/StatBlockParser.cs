@@ -32,6 +32,8 @@ namespace ManticoreViewer
             parsedStats.ChallengeRating = ParseChallengeRating(unparsedObject.Challenge);
             parsedStats.ArmourClass = ParseAC(unparsedObject.ArmorClass);
             parsedStats.AvgHitPoints = ParseHP(unparsedObject.HitPoints);
+            parsedStats.Speed = unparsedObject.Speed;
+            parsedStats.ImgURL = unparsedObject.img_url;
 
             return parsedStats;
         }
