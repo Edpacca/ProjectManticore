@@ -9,13 +9,13 @@ namespace ProjectManticore
         private string _databaseFilePath = @"C:\Users\eddie\OneDrive\ComputerScience\ProjectManticore\Database\5e_monsters.json";
         private dynamic _monsters;
         private StatBlockParser _parser = new StatBlockParser();
+        public List<Stats> MonsterStats { get => _monsterStats; }
         private List<Stats> _monsterStats = new List<Stats>();
 
         public MonsterManager()
         {
             _monsters = Deserialiser.DeserialiseJSON(_databaseFilePath);
             _monsterStats = _parser.ParseObjects(_monsters);
-
         }
 
         public void PrintMonsters()
