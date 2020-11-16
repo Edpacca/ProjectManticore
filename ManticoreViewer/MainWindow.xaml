@@ -3,10 +3,72 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ManticoreViewer"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light"
+        Title="My Demo" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" 
+                   Text="Dungeons &amp; Dragons" 
+                   FontFamily="Book Antiqua" 
+                   FontWeight="Bold"
+                   Grid.ColumnSpan="3"
+                   Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="2"
+                   Text="Name:" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="1" Grid.Row="3"
+                   Text="AC:" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="1" Grid.Row="4"
+                   Text="Hit Points:" Margin="0,0,10,0"/>
+        <TextBlock Grid.Column="1" Grid.Row="5"
+                   Text="Speed:" Margin="0,0,10,0"/>
+        <TextBox x:Name="nameTextBox" Grid.Column="2" Grid.Row="2"
+                 Width="150"/>
+        <TextBox x:Name="ArmourClass" Grid.Column="2" Grid.Row="3"
+                 Width="150"/>
+        <TextBox x:Name="HitPoints" Grid.Column="2" Grid.Row="4"
+                 Width="150"/>
+        <TextBox x:Name="Speed" Grid.Column="2" Grid.Row="5"
+                 Width="150"/>
+
+        <TextBlock Grid.Column="4" Grid.Row="1"
+                   Text="STR" Margin="5,5,5,5"/>
+        <TextBlock Grid.Column="5" Grid.Row="1"
+                   Text="DEX" Margin="5,5,5,5"/>
+        <TextBlock Grid.Column="6" Grid.Row="1"
+                   Text="CON" Margin="5,5,5,5"/>
+        <TextBlock Grid.Column="7" Grid.Row="1"
+                   Text="INT" Margin="5,5,5,5"/>
+        <TextBlock Grid.Column="8" Grid.Row="1"
+                   Text="WIS" Margin="5,5,5,5"/>
+        <TextBlock Grid.Column="9" Grid.Row="1"
+                   Text="CHA" Margin="5,5,5,5"/>
+
+
     </Grid>
 </Window>
