@@ -23,17 +23,19 @@ namespace ManticoreViewer
         {
             Stats parsedStats = new Stats();
             parsedStats.Name = unparsedObject.name;
-            parsedStats.Strength = (byte)unparsedObject.STR;
-            parsedStats.Dexterity = (byte)unparsedObject.DEX;
-            parsedStats.Constitution = (byte)unparsedObject.CON;
-            parsedStats.Intelligence = (byte)unparsedObject.INT;
-            parsedStats.Wisdom = (byte)unparsedObject.WIS;
-            parsedStats.Charisma = (byte)unparsedObject.CHA;
+            parsedStats.Strength = (int)unparsedObject.STR;
+            parsedStats.Dexterity = (int)unparsedObject.DEX;
+            parsedStats.Constitution = (int)unparsedObject.CON;
+            parsedStats.Intelligence = (int)unparsedObject.INT;
+            parsedStats.Wisdom = (int)unparsedObject.WIS;
+            parsedStats.Charisma = (int)unparsedObject.CHA;
             parsedStats.ChallengeRating = ParseChallengeRating(unparsedObject.Challenge);
             parsedStats.ArmourClass = ParseAC(unparsedObject.ArmorClass);
             parsedStats.AvgHitPoints = ParseHP(unparsedObject.HitPoints);
             parsedStats.Speed = unparsedObject.Speed;
             parsedStats.ImgURL = unparsedObject.img_url;
+            parsedStats.Actions = unparsedObject.Actions;
+            parsedStats.SetModifiers();
 
             return parsedStats;
         }
@@ -76,6 +78,5 @@ namespace ManticoreViewer
             string HPString = unparsedString.Substring(0, unparsedString.IndexOf(' '));
             return Convert.ToInt32(HPString);
         }
-
     }
 }
