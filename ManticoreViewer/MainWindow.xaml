@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light"
-        Title="My Demo" Height="450" Width="800">
+        Title="My Demo" Height="720" Width="1080">
     <Grid>
 
         <Grid>
@@ -14,12 +14,12 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="20" />
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="45" />
-                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="40" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -105,6 +105,38 @@
             <TextBlock Grid.Column="9" Grid.Row="2"
                    x:Name="CHA" 
                    Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+
+            
+            <TextBlock Grid.Column="4" Grid.Row="3"
+                   x:Name="STR_mod"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="5" Grid.Row="3"
+                   x:Name="DEX_mod"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="6" Grid.Row="3"
+                   x:Name="CON_mod" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="7" Grid.Row="3"
+                   x:Name="INT_mod"
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"   
+                   Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="8" Grid.Row="3"
+                   x:Name="WIS_mod" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="9" Grid.Row="3"
+                   x:Name="CHA_mod" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Margin="5,5,5,5"/>
+
+            <TextBlock Grid.Column="10" Grid.Row="6"
+                   TextWrapping="WrapWithOverflow"
+                   x:Name="Actions" 
+                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Actions, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
         </Grid>
     </Grid>

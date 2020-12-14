@@ -37,14 +37,8 @@ namespace ManticoreViewer
             try
             {
                 nameComboBox.DisplayMemberPath = "Name";
-                nameComboBox.SelectedValue = "Strength";
                 nameComboBox.ItemsSource = _monsterStats;
                 nameComboBox.Text = "Select monster";
-                //DEX.Text = nameComboBox.SelectedValuePath = "DEX";
-                //CON.Text = nameComboBox.SelectedValuePath = "CON";
-                //INT.Text = nameComboBox.SelectedValuePath = "INT";
-                //WIS.Text = nameComboBox.SelectedValuePath = "WIS";
-                //CHA.Text = nameComboBox.SelectedValuePath = "CHA";
             }
             catch (Exception)
             {
