@@ -16,7 +16,6 @@ namespace ProjectManticore
             //_monsterManager.PrintMonsters();
             //_monsterManager.PrintFirstMonster();
             //_monsterManager.PrintMonsterNames();
-            _monsterManager.PrintMonsterStats();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace ProjectManticore
     public class MonsterManager
     {
         private string _databaseFilePath = @"C:\Users\eddie\OneDrive\ComputerScience\ProjectManticore\Database\5e_monsters.json";
+        private string _databaseHTML = "https://gist.githubusercontent.com/tkfu/9819e4ac6d529e225e9fc58b358c3479/raw/d4df8804c25a662efc42936db60cfbc0a5b19db8/srd_5e_monsters.json";
+
         private dynamic _monsters;
         private StatBlockParser _parser = new StatBlockParser();
         public List<Stats> MonsterStats { get => _monsterStats; }
@@ -14,8 +16,10 @@ namespace ProjectManticore
 
         public MonsterManager()
         {
-            _monsters = Deserialiser.DeserialiseJSON(_databaseFilePath);
+            _monsters = Deserialiser.DeserialiseJSONFromDisk(_databaseFilePath);
             _monsterStats = _parser.ParseObjects(_monsters);
+
+            Deserialiser.DeserialiseJSONFromWeb(_databaseHTML);
         }
 
         public void PrintMonsters()
@@ -36,14 +40,6 @@ namespace ProjectManticore
             foreach (var name in _parser.ParseObjects(_monsters))
             {
                 Console.WriteLine(name);
-            }
-        }
-
-        public void PrintMonsterStats()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                _monsterStats[i].PrintStats();
             }
         }
     }
