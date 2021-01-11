@@ -1,42 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Newtonsoft.Json;
 
 namespace ProjectManticore
 {
     public class StatBlockParser
     {
+
         public List<Stats> ParseObjects(dynamic unparsedObjects)
         {
             List<Stats> parsedObjects = new List<Stats>();
+
             foreach (var unparsedObject in unparsedObjects)
-            {
-                parsedObjects.Add(ParseObject(unparsedObject));
-            }
+                parsedObjects.Add(new Stats(unparsedObject));
 
             return parsedObjects;
         }
 
-        private Stats ParseObject(dynamic unparsedObject)
-        {
-            Stats parsedStats = new Stats();
-            parsedStats.Name = unparsedObject.name;
-            parsedStats.Strength = (byte)unparsedObject.STR;
-            parsedStats.Dexterity = (byte)unparsedObject.DEX;
-            parsedStats.Constitution = (byte)unparsedObject.CON;
-            parsedStats.Intelligence = (byte)unparsedObject.INT;
-            parsedStats.Wisdom = (byte)unparsedObject.WIS;
-            parsedStats.Charisma = (byte)unparsedObject.CHA;
-            parsedStats.ChallengeRating = ParseChallengeRating(unparsedObject.Challenge);
-            parsedStats.ArmourClass = ParseAC(unparsedObject.ArmorClass);
-            parsedStats.AvgHitPoints = ParseHP(unparsedObject.HitPoints);
-
-            return parsedStats;
-        }
-
-        private float ParseChallengeRating(dynamic unparsed)
+        public static float ParseChallengeRating(dynamic unparsed)
         {
             string unparsedString = unparsed.ToString();
             string challengeRatingString = unparsedString.Substring(0, unparsedString.IndexOf(' '));
@@ -53,9 +33,10 @@ namespace ProjectManticore
             return challengeRating;  
         }
 
-        private byte ParseAC(dynamic unparsed)
+        public static byte ParseAC(dynamic unparsed)
         {
             string unparsedString = unparsed.ToString();
+
             try
             {
                 byte AC = Convert.ToByte(unparsedString);
@@ -67,13 +48,5 @@ namespace ProjectManticore
                 return Convert.ToByte(ACString);
             }
         }
-
-        private int ParseHP(dynamic unparsed)
-        {
-            string unparsedString = unparsed.ToString();
-            string HPString = unparsedString.Substring(0, unparsedString.IndexOf(' '));
-            return Convert.ToInt32(HPString);
-        }
-
     }
 }
