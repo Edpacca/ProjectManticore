@@ -13,14 +13,12 @@ namespace ProjectManticore
             IFileDeserialiser webDeserialiser = new WebDeserialiser();
             IFileDeserialiser diskDeserialiser = new DiskDeserialiser();
 
-            MonsterManager monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
+            //MonsterManager monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
 
-            for (int i = 0; i < 4; i++)
-            {
-                Console.WriteLine(monsterManager.MonsterStats[i].Dexterity);
+            Dice dice = new Dice(3, 8, 4);
+            DiceRoller diceRoller = new DiceRoller();
 
-                Console.WriteLine("");
-            }
+            diceRoller.RollDice(dice, new DiceRollConsoleLogger());
         }
     }
 }
