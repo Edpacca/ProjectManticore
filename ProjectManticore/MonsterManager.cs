@@ -16,7 +16,5 @@ namespace ProjectManticore
         {
             MonsterStats = _parser.ParseObjects(deserialiser.Deserialise(path));
         }
-
-
     }
 }
