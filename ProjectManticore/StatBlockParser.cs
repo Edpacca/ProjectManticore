@@ -5,7 +5,6 @@ namespace ProjectManticore
 {
     public class StatBlockParser
     {
-
         public List<Stats> ParseObjects(dynamic unparsedObjects)
         {
             List<Stats> parsedObjects = new List<Stats>();
@@ -47,6 +46,20 @@ namespace ProjectManticore
                 string ACString = unparsedString.Substring(0, unparsedString.IndexOf(' '));
                 return Convert.ToByte(ACString);
             }
+        }
+
+        public static int CalculateModifier(int abilityScore)
+        {
+            return (int)((float)(abilityScore - 10) / 2);
+        }
+
+        public static string StringModifier(int abilityScore)
+        {
+            if (abilityScore == 0)
+                return "";
+
+            int modifier = CalculateModifier(abilityScore);
+            return modifier == 0 ? "+0" : modifier > 0 ? "+" + modifier : modifier.ToString();
         }
     }
 }
