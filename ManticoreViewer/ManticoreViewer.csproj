@@ -38,10 +38,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectManticore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ProjectManticore\bin\Debug\netcoreapp3.1\ProjectManticore.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -75,6 +71,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectManticore\Dice.cs" />
+    <Compile Include="ProjectManticore\DiceRollConsoleLogger.cs" />
+    <Compile Include="ProjectManticore\DiceRoller.cs" />
+    <Compile Include="ProjectManticore\DiskDeserialiser.cs" />
+    <Compile Include="ProjectManticore\IDiceRoller.cs" />
+    <Compile Include="ProjectManticore\IFileDeserialiser.cs" />
+    <Compile Include="ProjectManticore\ILogger.cs" />
+    <Compile Include="ProjectManticore\Monster.cs" />
+    <Compile Include="ProjectManticore\MonsterManager.cs" />
+    <Compile Include="ProjectManticore\Roller.cs" />
+    <Compile Include="ProjectManticore\RollResult.cs" />
+    <Compile Include="ProjectManticore\StatBlockParser.cs" />
+    <Compile Include="ProjectManticore\Stats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
