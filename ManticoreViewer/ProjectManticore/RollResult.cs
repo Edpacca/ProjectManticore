@@ -41,7 +41,7 @@ namespace ManticoreViewer
             if (!_rolled)
                 throw new NotImplementedException("Dice not rolled");
 
-            string resultString = "rolling " + dice.Number + "d" + dice.Type + "+" + dice.Modifier + " = {";
+            string resultString = dice.Number + "d" + dice.Type + ": {";
 
             for (int i = 0; i < Rolls.Count; i++)
             {
@@ -49,7 +49,7 @@ namespace ManticoreViewer
                 resultString = i != Rolls.Count - 1 ? resultString + result + ", " : resultString + result;
             }
 
-            RollString = resultString + "} +" + dice.Modifier;
+            RollString = resultString + " } +" + dice.Modifier + " = " + Total;
         }
     }
 }

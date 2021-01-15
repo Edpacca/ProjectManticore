@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace ManticoreViewer
 {
@@ -26,6 +27,23 @@ namespace ManticoreViewer
             logger.LogValue(roll.Total);
 
             return roll.Total;
+        }
+
+        public int RollDiceInForm(Dice dice)
+        {
+            RollResult roll = new RollResult();
+
+            roll.Roll(dice, _roller);
+            RollResults.Add(roll);
+
+            MessageBox.Show(roll.RollString);
+
+            return roll.Total;
+        }
+
+        public void OnDiceRolled(object source, DiceEventArgs diceEvent)
+        {
+             RollDiceInForm(diceEvent.Dice);
         }
     }
 }
