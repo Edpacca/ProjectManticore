@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectManticore\Dice.cs" />
+    <Compile Include="ProjectManticore\DiceEventArgs.cs" />
     <Compile Include="ProjectManticore\DiceRollConsoleLogger.cs" />
     <Compile Include="ProjectManticore\DiceRoller.cs" />
     <Compile Include="ProjectManticore\DiskDeserialiser.cs" />
