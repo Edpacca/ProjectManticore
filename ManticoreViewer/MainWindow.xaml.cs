@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace ManticoreViewer
@@ -9,18 +10,20 @@ namespace ManticoreViewer
         string databaseDiskPath = @"C:\Users\eddie\OneDrive\ComputerScience\ProjectManticore\Database\5e_monsters.json";
         IFileDeserialiser diskDeserialiser = new DiskDeserialiser();
 
-        MonsterManager monsterManager;
-        List<Stats> _monsterStats;
+        MonsterManager _monsterManager;
+        List<Monster> _monsterDatabase;
+        public ObservableCollection<Monster> activeMonsters;
         DiceRoller diceRoller = new DiceRoller();
 
         public MainWindow()
         {
             InitializeComponent();
-            monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
+            _monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
             
-            _monsterStats = monsterManager.MonsterStats ?? new List<Stats>();
+            _monsterDatabase = _monsterManager.MonsterDatabase ?? new List<Monster>();
+            activeMonsters = new ObservableCollection<Monster>();
+            DataContext = this;
             Loaded += MainWindow_Loaded;
-            //rollButton.Click += diceRoller.OnDiceRolled;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -28,8 +31,9 @@ namespace ManticoreViewer
             try
             {
                 nameComboBox.DisplayMemberPath = "Name";
-                nameComboBox.ItemsSource = _monsterStats;
+                nameComboBox.ItemsSource = _monsterDatabase;
                 nameComboBox.Text = "Select monster";
+                ActiveMonsters.ItemsSource = activeMonsters;
             }
             catch (Exception)
             {
@@ -37,13 +41,21 @@ namespace ManticoreViewer
             }
         }
 
-        private void AddButtonClick(object sender, EventArgs e)
+        private void AddButtonClick(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var monster = (Monster)nameComboBox.SelectedItem;
+                if (monster != null && !activeMonsters.Contains(monster))
+                {
+                    activeMonsters.Add(monster);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Monster must be selected to add to list");
+            }
         }
-
-        public delegate void DiceRolledEventHandler(object source, RoutedEventArgs args);
-        public event DiceRolledEventHandler DiceRolled;
 
         protected virtual void OnDiceRolled(object sender, RoutedEventArgs e)
         {
@@ -54,9 +66,6 @@ namespace ManticoreViewer
                 int modifier = Convert.ToInt32(diceModifier.Text);
 
                 diceRoller.OnDiceRolled(sender, new DiceEventArgs() { Dice = new Dice(numberOfDice, typeOfDice, modifier) });
-
-               //if (DiceRolled != null)
-                    //DiceRolled(sender, new DiceEventArgs() { Dice = new Dice(numberOfDice, typeOfDice, modifier) });
             }
             catch (Exception)
             {

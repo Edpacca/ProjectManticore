@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light" 
         Title="My Demo" Height="720" Width="1080">
+    
+    <!--<Window.Background>
+        <ImageBrush ImageSource="Images/parchment.jpg"/>
+    </Window.Background>-->
+
     <Grid>
 
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="20" />
@@ -26,10 +31,10 @@
                 <ColumnDefinition Width="35" />
                 <ColumnDefinition Width="35" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="40" />
@@ -40,14 +45,14 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="1" Grid.Row="1" 
                    Text="Dungeons &amp; Dragons" 
                    FontFamily="Book Antiqua"
                    FontSize="32"
-                   Foreground="Brown"
+                   Foreground="Black"
                    FontWeight="Bold"
                    Grid.ColumnSpan="3"
                    Margin="0,0,0,10"/>
@@ -93,55 +98,90 @@
             <TextBlock Grid.Column="9" Grid.Row="2"
                    Text="CHA" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
 
-            <TextBlock Grid.Column="4" Grid.Row="3"
-                   x:Name="STR"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Strength, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+            <TextBlock Grid.Column="4" Grid.Row="3" x:Name="STR"
+                   Text="{Binding ElementName = nameComboBox,
+                        Path = SelectedItem.Strength, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="5" Grid.Row="3"
                    x:Name="DEX"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Dexterity, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Dexterity, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="6" Grid.Row="3"
                    x:Name="CON" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Constitution, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Constitution, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="7" Grid.Row="3"
                    x:Name="INT"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Intelligence, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"   
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Intelligence, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"   
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="8" Grid.Row="3"
                    x:Name="WIS" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Wisdom, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Wisdom, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="9" Grid.Row="3"
                    x:Name="CHA" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Charisma, 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
 
 
             <TextBlock Grid.Column="4" Grid.Row="4"
                    x:Name="STR_mod"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[0], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="5" Grid.Row="4"
                    x:Name="DEX_mod"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[1], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="6" Grid.Row="4"
                    x:Name="CON_mod" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[2], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="7" Grid.Row="4"
                    x:Name="INT_mod"
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"   
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[3], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"   
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="8" Grid.Row="4"
                    x:Name="WIS_mod" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[4], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
             <TextBlock Grid.Column="9" Grid.Row="4"
                    x:Name="CHA_mod" 
-                   Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"
+                   Text="{Binding ElementName = nameComboBox, 
+                        Path = SelectedItem.Modifiers[5], 
+                        Mode = TwoWay, 
+                        UpdateSourceTrigger = PropertyChanged}"
                    Margin="5,5,5,5"/>
 
             <Button 
@@ -154,6 +194,23 @@
                     VerticalAlignment="Top" 
                     Width="75"
                     />
+
+            <Canvas Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="3">
+                <ListView x:Name="ActiveMonsters" ItemsSource="{Binding activeMonsters}"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      Panel.ZIndex="1" Background="Transparent" 
+                      Visibility="Visible" BorderThickness="1"                   
+                      MinHeight="0"
+                      HorizontalContentAlignment="Center">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width = "300"/>
+                            <GridViewColumn Header="CR" DisplayMemberBinding="{Binding ChallengeRating}" Width = "120"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Canvas>
+            
 
             <TextBox Grid.Column="10" Grid.Row="9"
                    x:Name="diceNumber"
