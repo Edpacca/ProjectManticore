@@ -9,12 +9,18 @@ namespace ManticoreViewer
     {
         private StatBlockParser _parser = new StatBlockParser();
 
-        public List<Stats> MonsterStats { get; private set; }
-        public List<object> MonsterList { get; private set; }
+        public List<Monster> MonsterDatabase { get; private set; }
+        public List<Monster> ActiveMonsters { get; private set; }
 
         public MonsterManager(IFileDeserialiser deserialiser, string path)
         {
-            MonsterStats = _parser.ParseObjects(deserialiser.Deserialise(path));
+            ActiveMonsters = new List<Monster>();
+            MonsterDatabase = _parser.ParseObjects(deserialiser.Deserialise(path));
+        }
+
+        public void AddMonster(Monster monster)
+        {
+            ActiveMonsters.Add(monster);
         }
     }
 }

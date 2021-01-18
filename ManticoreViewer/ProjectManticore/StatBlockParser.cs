@@ -5,12 +5,12 @@ namespace ManticoreViewer
 {
     public class StatBlockParser
     {
-        public List<Stats> ParseObjects(dynamic unparsedObjects)
+        public List<Monster> ParseObjects(dynamic unparsedObjects)
         {
-            List<Stats> parsedObjects = new List<Stats>();
+            List<Monster> parsedObjects = new List<Monster>();
 
             foreach (var unparsedObject in unparsedObjects)
-                parsedObjects.Add(new Stats(unparsedObject));
+                parsedObjects.Add(new Monster(unparsedObject));
 
             return parsedObjects;
         }
