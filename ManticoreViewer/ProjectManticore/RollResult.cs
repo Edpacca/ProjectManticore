@@ -10,10 +10,12 @@ namespace ManticoreViewer
         public List<int> Rolls { get; private set; }
         public string RollString { get; private set; }
         private bool _rolled;
+        public DRollResult DRoll;
 
         public RollResult()
         {
             Rolls = new List<int>();
+            DRoll = new DRollResult();
         }
 
         public RollResult(int total, int modifier, List<int> rolls)
@@ -33,6 +35,7 @@ namespace ManticoreViewer
             }
 
             Total += dice.Modifier;
+            DRoll.RollResult = Total;
             WriteRollString(dice);
         }
 
@@ -50,6 +53,7 @@ namespace ManticoreViewer
             }
 
             RollString = resultString + " } +" + dice.Modifier + " = " + Total;
+            DRoll.RollString = RollString;
         }
     }
 }

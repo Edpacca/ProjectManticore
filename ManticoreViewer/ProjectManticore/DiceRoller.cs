@@ -29,21 +29,21 @@ namespace ManticoreViewer
             return roll.Total;
         }
 
-        public int RollDiceInForm(Dice dice)
+        public DRollResult RollDiceInForm(Dice dice)
         {
             RollResult roll = new RollResult();
 
             roll.Roll(dice, _roller);
             RollResults.Add(roll);
 
-            MessageBox.Show(roll.RollString);
+            //MessageBox.Show(roll.RollString);
 
-            return roll.Total;
+            return roll.DRoll;
         }
 
-        public void OnDiceRolled(object source, DiceEventArgs diceEvent)
+        public DRollResult OnDiceRolled(object source, DiceEventArgs diceEvent)
         {
-             RollDiceInForm(diceEvent.Dice);
+             return RollDiceInForm(diceEvent.Dice);
         }
     }
 }
