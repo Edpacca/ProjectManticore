@@ -76,15 +76,15 @@
     <Compile Include="ProjectManticore\DiceRollConsoleLogger.cs" />
     <Compile Include="ProjectManticore\DiceRoller.cs" />
     <Compile Include="ProjectManticore\DiskDeserialiser.cs" />
+    <Compile Include="ProjectManticore\DRollResult.cs" />
     <Compile Include="ProjectManticore\IDiceRoller.cs" />
     <Compile Include="ProjectManticore\IFileDeserialiser.cs" />
     <Compile Include="ProjectManticore\ILogger.cs" />
-    <Compile Include="ProjectManticore\Monster.cs" />
     <Compile Include="ProjectManticore\MonsterManager.cs" />
     <Compile Include="ProjectManticore\Roller.cs" />
     <Compile Include="ProjectManticore\RollResult.cs" />
     <Compile Include="ProjectManticore\StatBlockParser.cs" />
-    <Compile Include="ProjectManticore\Stats.cs" />
+    <Compile Include="ProjectManticore\Monster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\parchment.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
