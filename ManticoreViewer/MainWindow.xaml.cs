@@ -15,8 +15,7 @@ namespace ManticoreViewer
         List<Monster> _monsterDatabase;
         public ObservableCollection<Monster> activeMonsters;
         DiceRoller diceRoller = new DiceRoller();
-
-        int rollResult;
+        public ObservableCollection<string> rollResultList;
 
         public MainWindow()
         {
@@ -25,6 +24,7 @@ namespace ManticoreViewer
             
             _monsterDatabase = _monsterManager.MonsterDatabase ?? new List<Monster>();
             activeMonsters = new ObservableCollection<Monster>();
+            rollResultList = new ObservableCollection<string>();
             DataContext = this;
             Loaded += MainWindow_Loaded;
         }
@@ -37,6 +37,8 @@ namespace ManticoreViewer
                 nameComboBox.ItemsSource = _monsterDatabase;
                 nameComboBox.Text = "Select monster";
                 ActiveMonsters.ItemsSource = activeMonsters;
+                speed2ComboBox.ItemsSource = new List<string>() { "swim", "fly", "burrow", "climb" };
+                rollResultLog.ItemsSource = rollResultList;
             }
             catch (Exception)
             {
@@ -78,6 +80,8 @@ namespace ManticoreViewer
                 rollResultBox.Text = roll.RollResult.ToString();
                 rollResultStringBox.Text = roll.RollString;
 
+                rollResultList.Add(roll.RollString);
+
             }
             catch (Exception)
             {
@@ -93,6 +97,72 @@ namespace ManticoreViewer
         private void LoadButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Loaded");
+        }
+
+        private void ClearRollsButtonClick(object sender, RoutedEventArgs e)
+        {
+            rollResultList.Clear();
+        }
+
+        private void SaveMonster(object sender, RoutedEventArgs e)
+        {
+            var monster = new Monster();
+
+            try
+            {
+                monster.Name = entryName.Text;
+                monster.HitPoints = entryHP.Text;
+
+                try
+                {
+                    monster.ArmourClass = Convert.ToByte(entryAC.Text);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error: AC must be integer");
+                }
+
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(entrySpeed2.Text))
+                        monster.Speed = Convert.ToInt32(entrySpeed1.Text) + " ft., ";
+                    else if (speed2ComboBox.SelectedItem == null)
+                        MessageBox.Show("Please select second movement type");
+                    else
+                        monster.Speed = Convert.ToInt32(entrySpeed1.Text) + " ft., " + speed2ComboBox.SelectedItem + " " + Convert.ToInt32(entrySpeed2.Text) + " ft.";
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error: speed values must be integer");
+                }
+
+                try
+                {
+                    monster.Strength = Convert.ToByte(entrySTR.Text);
+                    monster.Dexterity = Convert.ToByte(entryDEX.Text);
+                    monster.Constitution = Convert.ToByte(entryCON.Text);
+                    monster.Intelligence = Convert.ToByte(entryINT.Text);
+                    monster.Wisdom = Convert.ToByte(entryWIS.Text);
+                    monster.Charisma = Convert.ToByte(entryCHA.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error: ability scores must be integer values");
+                }
+
+                if (!string.IsNullOrEmpty(ImageURLTextBox.Text))
+                    monster.ImgURL = ImageURLTextBox.Text;
+
+                monster.ChallengeRating = 1;
+                _monsterDatabase.Add(monster);
+                activeMonsters.Add(monster);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error creating mosnter - did you fill in all the boxes?");
+            }
+
         }
     }
 }
