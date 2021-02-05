@@ -203,5 +203,30 @@ namespace ManticoreViewer
                 MessageBox.Show("No active monster selected");
             }
         }
+
+        private void ApplyDamage(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int modifier = button.Name == "healButton" ? 1 : -1;
+
+            try
+            {
+                int damage = Convert.ToInt32(DamageBox.Text);
+
+                int newHP = activeMonsters[ActiveMonsters.SelectedIndex].CurrentHitPoints += (damage * modifier);
+
+                if (newHP < 0)
+                    newHP = 0;
+                else if (newHP > activeMonsters[ActiveMonsters.SelectedIndex].HitPoints)
+                    newHP = activeMonsters[ActiveMonsters.SelectedIndex].HitPoints;
+
+                activeMonsters[ActiveMonsters.SelectedIndex].CurrentHitPoints = newHP;
+                currentHP.Text = newHP.ToString();
+
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }

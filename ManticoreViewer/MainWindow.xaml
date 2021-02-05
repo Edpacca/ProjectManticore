@@ -176,7 +176,11 @@
             <TextBlock Grid.Column="28" Grid.Row="3" Text="AC:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="28" Grid.Row="1" Text="HP:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="28" Grid.Row="4" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Image Source="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="28" Grid.Row="6" Width="Auto" Grid.RowSpan="6" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="hurtButton" Grid.Column="30" Grid.Row="5" Click="ApplyDamage" Content="Damage" FontWeight="Bold" Margin="5,5,5,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="DarkRed" Foreground="Bisque"/>
+            <Button x:Name="healButton" Grid.Column="28" Grid.Row="5" Click="ApplyDamage" Content="Heal" FontWeight="Bold" Margin="5,5,5,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Bisque" Foreground="Green"/>
+            <!--<Image Source="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="28" Grid.Row="6" Width="Auto" Grid.RowSpan="6" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+            <TextBox x:Name="DamageBox" Grid.Column="29" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="28" Margin="5,5,5,5" />
+
 
             <!--Dice roll Panel-->
 
