@@ -9,7 +9,8 @@ namespace ManticoreViewer
     public class Monster
     {
         public string Name { get; set; }
-        public string HitPoints { get; set; }
+        public int HitPoints { get; set; }
+        public int CurrentHitPoints { get; set; }
         public string Speed { get; set; }
         public byte ArmourClass { get; set; }
         public byte Strength { get; set; }
@@ -27,7 +28,8 @@ namespace ManticoreViewer
         public Monster(dynamic jsonObject)
         {
             Name = jsonObject.name;
-            HitPoints = jsonObject.HitPoints;
+            HitPoints = StatBlockParser.ParseHP(jsonObject.HitPoints);
+            CurrentHitPoints = HitPoints;
             Speed = jsonObject.Speed;
             Strength = (byte)jsonObject.STR;
             Dexterity = (byte)jsonObject.DEX;
