@@ -48,6 +48,22 @@ namespace ManticoreViewer
             }
         }
 
+        public static int ParseHP(dynamic unparsed)
+        {
+            string unparsedString = unparsed.ToString();
+
+            try
+            {
+                int HP = Convert.ToByte(unparsedString);
+                return HP;
+            }
+            catch (Exception)
+            {
+                string HPString = unparsedString.Substring(0, unparsedString.IndexOf(' '));
+                return Convert.ToInt32(HPString);
+            }
+        }
+
         public static int CalculateModifier(int abilityScore)
         {
             return (int)((float)(abilityScore - 10) / 2);
