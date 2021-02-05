@@ -3,8 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light" 
+        xmlns:local="clr-namespace:ManticoreViewer"
+        mc:Ignorable="d" FontSize="18" FontFamily="Book Antiqua" 
         Title="Manticore Viewer" Height="1080" Width="1920" WindowState="Maximized">
+
+    <Window.Resources>
+        <local:IntegerConverter x:Key="IntegerConverter" />
+        <local:ProgressToColourConverter x:Key="ProgressToColourConverter"/>
+    </Window.Resources>
 
     <!--<Window.Background>
         <ImageBrush ImageSource="Images/parchment.jpg"/>
@@ -44,7 +50,8 @@
                 <ColumnDefinition Width="55" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
@@ -78,12 +85,14 @@
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="D&amp;D Monster Database" FontFamily="Book Antiqua" FontSize="32" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="10,0,0,10"/>
+            
+            <!--Database Panel-->
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="D&amp;D Monster Database" FontSize="32" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="10,0,0,10"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="3" Text="Name:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="4" Text="Armour Class:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="5" Text="Hit Points:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="6" Text="Speed:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="3" Text="Name:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Text="Armour Class:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="Hit Points:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="6" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
 
             <ComboBox x:Name="nameComboBox" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="6" IsEditable="True"/>
 
@@ -92,27 +101,30 @@
             <TextBlock x:Name="Speed" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <Image Source="{Binding ElementName = nameComboBox, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="10" Grid.Row="3" Width="Auto" Grid.RowSpan="5" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <TextBlock Grid.Column="2" Grid.Row="9" Text="STR" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="3" Grid.Row="9" Text="DEX" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="4" Grid.Row="9" Text="CON" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="5" Grid.Row="9" Text="INT" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="6" Grid.Row="9" Text="WIS" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="7" Grid.Row="9" Text="CHA" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="2" Grid.Row="9" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="3" Grid.Row="9" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="4" Grid.Row="9" Text="CON" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="5" Grid.Row="9" Text="INT" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="6" Grid.Row="9" Text="WIS" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="7" Grid.Row="9" Text="CHA" FontWeight="Bold" Margin="5,5,5,5"/>
 
-            <TextBlock Grid.Column="2" Grid.Row="10" x:Name="STR" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Strength, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="3" Grid.Row="10" x:Name="DEX" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Dexterity, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="4" Grid.Row="10" x:Name="CON" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Constitution, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="5" Grid.Row="10" x:Name="INT" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Intelligence, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="6" Grid.Row="10" x:Name="WIS" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Wisdom, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="7" Grid.Row="10" x:Name="CHA" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="2" Grid.Row="10" x:Name="STR" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Strength, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="3" Grid.Row="10" x:Name="DEX" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Dexterity, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="4" Grid.Row="10" x:Name="CON" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Constitution, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="5" Grid.Row="10" x:Name="INT" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Intelligence, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="6" Grid.Row="10" x:Name="WIS" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Wisdom, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="7" Grid.Row="10" x:Name="CHA" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
 
 
-            <TextBlock Grid.Column="2" Grid.Row="11" x:Name="STR_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="3" Grid.Row="11" x:Name="DEX_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="4" Grid.Row="11" x:Name="CON_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="5" Grid.Row="11" x:Name="INT_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="6" Grid.Row="11" x:Name="WIS_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="7" Grid.Row="11" x:Name="CHA_mod" FontFamily="Book Antiqua" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="2" Grid.Row="11" x:Name="STR_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="3" Grid.Row="11" x:Name="DEX_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="4" Grid.Row="11" x:Name="CON_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="5" Grid.Row="11" x:Name="INT_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="6" Grid.Row="11" x:Name="WIS_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="7" Grid.Row="11" x:Name="CHA_mod" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+
+
+            <!--Active monsters Panel-->
 
             <Button x:Name="addButton" Content="Add" Grid.Column="16" Click="AddButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
             <Button x:Name="removeButton" Content="Remove" Grid.Column="17" Click="RemoveButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
@@ -129,40 +141,44 @@
                 </ListView.View>
             </ListView>
 
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="21" Grid.RowSpan="12" Grid.ColumnSpan="10" Margin="-5,-5,-5,-5"></Border>
 
-            <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="21" Grid.RowSpan="12" Grid.ColumnSpan="9" Margin="-5,-5,-5,-5"></Border>
+            <TextBlock Grid.Column="21" Grid.Row="1" Grid.ColumnSpan="6" FontWeight="Bold" Foreground="Brown" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Name, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin ="5,5,5,5"/>
 
-            <TextBlock Grid.Column="21" Grid.Row="1" Grid.ColumnSpan="6" FontFamily="Book Antiqua" FontWeight="Bold" Foreground="Brown" 
-                       Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Name, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin ="5,5,5,5"/>
+            <TextBlock Grid.Column="21" Grid.Row="3" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="22" Grid.Row="3" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="23" Grid.Row="3" Text="CON" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="24" Grid.Row="3" Text="INT" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="25" Grid.Row="3" Text="WIS" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="26" Grid.Row="3" Text="CHA" FontWeight="Bold" Margin="5,5,5,5"/>
 
-            <TextBlock Grid.Column="21" Grid.Row="3" Text="STR" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="22" Grid.Row="3" Text="DEX" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="23" Grid.Row="3" Text="CON" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="24" Grid.Row="3" Text="INT" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="25" Grid.Row="3" Text="WIS" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="26" Grid.Row="3" Text="CHA" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+            <Button Grid.Column="21" Grid.Row="4" x:Name="STR_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="22" Grid.Row="4" x:Name="DEX_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="23" Grid.Row="4" x:Name="CON_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="24" Grid.Row="4" x:Name="INT_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="25" Grid.Row="4" x:Name="WIS_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="26" Grid.Row="4" x:Name="CHA_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
 
-            <TextBlock Grid.Column="21" Grid.Row="4" x:Name="STR_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Strength, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="22" Grid.Row="4" x:Name="DEX_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Dexterity, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="23" Grid.Row="4" x:Name="CON_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Constitution, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="24" Grid.Row="4" x:Name="INT_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Intelligence, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="25" Grid.Row="4" x:Name="WIS_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Wisdom, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="26" Grid.Row="4" x:Name="CHA_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Charisma, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock x:Name="activeHP" Grid.Column="30" Grid.Row="1" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints, UpdateSourceTrigger = PropertyChanged}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Margin="5,5,5,5"/>
+            <TextBox x:Name="currentHP" Grid.Column="29" Grid.Row="1" Text="{Binding ElementName =ActiveMonsters, Path =SelectedItem.CurrentHitPoints, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="28" Margin="5,5,5,5"/>
+            <ProgressBar x:Name="HPProgress" Grid.Row="2" Grid.Column="21" Grid.ColumnSpan="10" Minimum="0" Maximum="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints}" Value="{Binding ElementName=currentHP, Path=Text, Converter={StaticResource IntegerConverter}, UpdateSourceTrigger=PropertyChanged}">
+                <ProgressBar.Foreground>
+                    <MultiBinding Converter="{StaticResource ProgressToColourConverter}">
+                        <Binding ElementName="HPProgress" Path="Value" />
+                        <Binding ElementName="HPProgress" Path="Maximum" />
+                    </MultiBinding>
+                </ProgressBar.Foreground>
+            </ProgressBar>
 
-            <TextBlock Grid.Column="21" Grid.Row="5" x:Name="STR_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="22" Grid.Row="5" x:Name="DEX_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="23" Grid.Row="5" x:Name="CON_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="24" Grid.Row="5" x:Name="INT_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="25" Grid.Row="5" x:Name="WIS_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="26" Grid.Row="5" x:Name="CHA_mod_active" FontFamily="Book Antiqua" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <TextBlock x:Name="activeAC" Grid.Column="29" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock x:Name="activeSpeed" Grid.Column="29" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold"/>
+            
+            <TextBlock Grid.Column="28" Grid.Row="3" Text="AC:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="28" Grid.Row="1" Text="HP:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="28" Grid.Row="4" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Image Source="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="28" Grid.Row="6" Width="Auto" Grid.RowSpan="6" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <TextBlock x:Name="activeAC" Grid.Column="29" Grid.Row="3" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"/>
-            <TextBlock x:Name="activeHP" Grid.Column="29" Grid.Row="4" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"/>
-            <TextBlock x:Name="activeSpeed" Grid.Column="29" Grid.Row="5" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}"/>
-            <TextBlock Grid.Column="28" Grid.Row="3" Text="Speed:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="28" Grid.Row="4" Text="HP:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="28" Grid.Row="5" Text="AC:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+            <!--Dice roll Panel-->
 
             <Border BorderThickness="1" BorderBrush="Black" Grid.Row="14" Grid.Column="16" Grid.RowSpan="12" Grid.ColumnSpan="3" Margin="-5,-5,-5,-5"></Border>
             <Grid Grid.Row="14" Grid.Column="16" Grid.RowSpan="12" Grid.ColumnSpan="3">
@@ -190,17 +206,17 @@
                 <TextBox Grid.Column="3" Grid.Row="1" x:Name="diceType" Margin="5,5,5,5"/>
                 <TextBox Grid.Column="5" Grid.Row="1" x:Name="diceModifier" Margin="5,5,5,5"/>
 
-                <TextBlock Grid.Column="2" Grid.Row="1" Text="d" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-                <TextBlock Grid.Column="4" Grid.Row="1" Text="+" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+                <TextBlock Grid.Column="2" Grid.Row="1" Text="d" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Margin="5,5,5,5"/>
+                <TextBlock Grid.Column="4" Grid.Row="1" Text="+" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Margin="5,5,5,5"/>
 
-                <Button x:Name="rollButton" Content="Roll" Foreground="Brown" Background="BurlyWood" FontFamily="Book Antiqua" FontWeight="Bold" FontSize="40" BorderThickness="2"
+                <Button x:Name="rollButton" Content="Roll" Foreground="Brown" Background="BurlyWood" FontWeight="Bold" FontSize="40" BorderThickness="2"
                         Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="3" Click="OnDiceRolled" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
                 <Border BorderThickness="1" BorderBrush="Black" Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5,5,5,5"></Border>
-                <TextBlock x:Name="rollResultBox" FontFamily="Book Antiqua" FontWeight="Bold" FontSize="40" 
+                <TextBlock x:Name="rollResultBox" FontWeight="Bold" FontSize="40" 
                            Grid.Column="4" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center"/>
 
-                <TextBlock x:Name="rollResultStringBox" FontFamily="Book Antiqua" FontSize="20" Foreground="Brown"
+                <TextBlock x:Name="rollResultStringBox" FontSize="20" Foreground="Brown"
                            Grid.Column="1" Grid.Row="4" Grid.RowSpan="1" Grid.ColumnSpan="5" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
                 <ListBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5" x:Name="rollResultLog">
@@ -213,53 +229,54 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Button x:Name="clearRollsButton" Content="Clear" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Margin="0,5,0,0" FontFamily="Book Antiqua" FontWeight="Bold" FontSize="20" Click="ClearRollsButtonClick">
+                <Button x:Name="clearRollsButton" Content="Clear" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" Margin="0,5,0,0" FontWeight="Bold" FontSize="20" Click="ClearRollsButtonClick">
                 </Button>
             </Grid>
 
-
+            <!--Monster creation Panel-->
+            
             <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="1" Grid.RowSpan="12" Grid.ColumnSpan="14" Margin="-5,-5,-5,-5"></Border>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Row="14" Grid.Column="1" Grid.RowSpan="12" Grid.ColumnSpan="14" Margin="-5,-5,-5,-5"></Border>
 
-            <TextBlock Grid.Column="1" Grid.Row="14" Text="Monster Creation" FontFamily="Book Antiqua" FontSize="32" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="10,0,0,10"/>
+            <TextBlock Grid.Column="1" Grid.Row="14" Text="Monster Creation" FontSize="32" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="10,0,0,10"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="16" Text="Name:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="17" Text="Armour Class:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="18" Text="Hit Points:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="19" Text="Speed:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="16" Text="Name:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="17" Text="Armour Class:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="18" Text="Hit Points:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="19" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
 
             <TextBox x:Name="entryName" Grid.Column="4" Grid.Row="16" Grid.ColumnSpan="6"/>
             <TextBox x:Name="entryAC" Grid.Column="4" Grid.Row="17"/>
             <TextBox x:Name="entryHP" Grid.Column="4" Grid.Row="18"/>
             <TextBox x:Name="entrySpeed1" Grid.Column="4" Grid.Row="19"/>
             <TextBox x:Name="entrySpeed2" Grid.Column="8" Grid.Row="19"/>
-            <TextBlock Grid.Column="5" Grid.Row="19" Text="ft.," FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="9" Grid.Row="19" Text="ft." FontFamily="Book Antiqua" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <ComboBox x:Name="speed2ComboBox" Grid.Column="6" Grid.Row="19" Grid.ColumnSpan="2" IsEditable="True" FontFamily="Book Antiqua"/>
+            <TextBlock Grid.Column="5" Grid.Row="19" Text="ft.," FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="9" Grid.Row="19" Text="ft." FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="speed2ComboBox" Grid.Column="6" Grid.Row="19" Grid.ColumnSpan="2" IsEditable="True"/>
 
-            <TextBlock Grid.Column="2" Grid.Row="21" Text="STR" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="3" Grid.Row="21" Text="DEX" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="4" Grid.Row="21" Text="CON" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="5" Grid.Row="21" Text="INT" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="6" Grid.Row="21" Text="WIS" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="7" Grid.Row="21" Text="CHA" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="2" Grid.Row="21" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="3" Grid.Row="21" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="4" Grid.Row="21" Text="CON" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="5" Grid.Row="21" Text="INT" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="6" Grid.Row="21" Text="WIS" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="7" Grid.Row="21" Text="CHA" FontWeight="Bold" Margin="5,5,5,5"/>
 
-            <TextBox x:Name="entrySTR" Grid.Column="2" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="entryDEX" Grid.Column="3" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="entryCON" Grid.Column="4" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="entryINT" Grid.Column="5" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="entryWIS" Grid.Column="6" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="entryCHA" Grid.Column="7" Grid.Row="22" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entrySTR" Grid.Column="2" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entryDEX" Grid.Column="3" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entryCON" Grid.Column="4" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entryINT" Grid.Column="5" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entryWIS" Grid.Column="6" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="entryCHA" Grid.Column="7" Grid.Row="22" FontWeight="Bold" Margin="5,5,5,5"/>
 
             <Image Source="{Binding ElementName = ImageURLTextBox, Path = Text, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="10" Grid.Row="16" Width="Auto" Grid.RowSpan="6" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="24" Text="Image:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox x:Name="ImageURLTextBox" Grid.Column="2" Grid.Row="24" Grid.ColumnSpan="6" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="1" Grid.Row="24" Text="Image:" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox x:Name="ImageURLTextBox" Grid.Column="2" Grid.Row="24" Grid.ColumnSpan="6" FontWeight="Bold" Margin="5,5,5,5"/>
             
-            <TextBlock Grid.Column="1" Grid.Row="25" Text="Text:" FontFamily="Book Antiqua" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBox Grid.Column="2" Grid.Row="25" Grid.ColumnSpan="13" FontFamily="Book Antiqua" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="1" Grid.Row="25" Text="Text:" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBox Grid.Column="2" Grid.Row="25" Grid.ColumnSpan="13" Margin="5,5,5,5"/>
             
             
-            <Button x:Name="createButton" Content="Save" Foreground="Brown" Background="BurlyWood" FontFamily="Book Antiqua" FontWeight="Bold" FontSize="40" BorderThickness="2"
+            <Button x:Name="createButton" Content="Save" Foreground="Brown" Background="BurlyWood" FontWeight="Bold" FontSize="40" BorderThickness="2"
                         Grid.Column="10" Grid.Row="23" Grid.RowSpan="2" Grid.ColumnSpan="5" Click="SaveMonster" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         </Grid>
