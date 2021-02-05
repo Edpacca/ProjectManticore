@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Linq;
 
 namespace ManticoreViewer
 {
@@ -16,6 +18,8 @@ namespace ManticoreViewer
         public ObservableCollection<Monster> activeMonsters;
         DiceRoller diceRoller = new DiceRoller();
         public ObservableCollection<string> rollResultList;
+
+
 
         public MainWindow()
         {
@@ -65,7 +69,7 @@ namespace ManticoreViewer
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
             if (activeMonsters.Count > 0)
-                activeMonsters.RemoveAt(activeMonsters.Count - 1);
+                activeMonsters.RemoveAt(ActiveMonsters.SelectedIndex);
         }
 
         protected virtual void OnDiceRolled(object sender, RoutedEventArgs e)
@@ -111,7 +115,17 @@ namespace ManticoreViewer
             try
             {
                 monster.Name = entryName.Text;
-                monster.HitPoints = entryHP.Text;
+
+                try
+                {
+                    monster.HitPoints = Convert.ToInt32(entryHP.Text);
+                    monster.CurrentHitPoints = monster.HitPoints;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error: HP must be integer");
+                    return;
+                }
 
                 try
                 {
@@ -121,6 +135,7 @@ namespace ManticoreViewer
                 {
 
                     MessageBox.Show("Error: AC must be integer");
+                    return;
                 }
 
                 try
@@ -128,13 +143,18 @@ namespace ManticoreViewer
                     if (string.IsNullOrWhiteSpace(entrySpeed2.Text))
                         monster.Speed = Convert.ToInt32(entrySpeed1.Text) + " ft., ";
                     else if (speed2ComboBox.SelectedItem == null)
+                    {
                         MessageBox.Show("Please select second movement type");
+                        return;
+                    }
+
                     else
                         monster.Speed = Convert.ToInt32(entrySpeed1.Text) + " ft., " + speed2ComboBox.SelectedItem + " " + Convert.ToInt32(entrySpeed2.Text) + " ft.";
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Error: speed values must be integer");
+                    return;
                 }
 
                 try
@@ -149,12 +169,14 @@ namespace ManticoreViewer
                 catch (Exception)
                 {
                     MessageBox.Show("Error: ability scores must be integer values");
+                    return;
                 }
 
                 if (!string.IsNullOrEmpty(ImageURLTextBox.Text))
                     monster.ImgURL = ImageURLTextBox.Text;
 
                 monster.ChallengeRating = 1;
+                monster.SetModifiers();
                 _monsterDatabase.Add(monster);
                 activeMonsters.Add(monster);
             }
@@ -162,7 +184,24 @@ namespace ManticoreViewer
             {
                 MessageBox.Show("Error creating mosnter - did you fill in all the boxes?");
             }
+        }
 
+        private void RollWithModifier(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+            try
+            {
+                int modifier = Convert.ToInt32(button.Content);
+                DRollResult roll = diceRoller.OnDiceRolled(sender, new DiceEventArgs() { Dice = new Dice(1, 20, modifier) });
+                rollResultBox.Text = roll.RollResult.ToString();
+                rollResultStringBox.Text = roll.RollString;
+                rollResultList.Add(roll.RollString);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No active monster selected");
+            }
         }
     }
 }
