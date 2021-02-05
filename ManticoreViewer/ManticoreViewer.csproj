@@ -71,6 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProgressToColourConverter.cs" />
     <Compile Include="ProjectManticore\Dice.cs" />
     <Compile Include="ProjectManticore\DiceEventArgs.cs" />
     <Compile Include="ProjectManticore\DiceRollConsoleLogger.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="ProjectManticore\IDiceRoller.cs" />
     <Compile Include="ProjectManticore\IFileDeserialiser.cs" />
     <Compile Include="ProjectManticore\ILogger.cs" />
+    <Compile Include="IntegerConverter.cs" />
+    <Compile Include="ProjectManticore\MonsterCopy.cs" />
     <Compile Include="ProjectManticore\MonsterManager.cs" />
     <Compile Include="ProjectManticore\Roller.cs" />
     <Compile Include="ProjectManticore\RollResult.cs" />
@@ -113,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\parchment.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shield.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
