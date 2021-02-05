@@ -228,5 +228,27 @@ namespace ManticoreViewer
             {
             }
         }
+
+        private void AddMonsterInstance(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+            try
+            {
+                if (button.Name == "addInstanceButton")
+                {
+                    activeMonsters[ActiveMonsters.SelectedIndex].AddInstance();
+                    monsterDuplicates.ItemsSource = activeMonsters[ActiveMonsters.SelectedIndex].CurrentHPCount;
+                }
+                else if (button.Name == "removeInstanceButton")
+                {
+                    activeMonsters[ActiveMonsters.SelectedIndex].RemoveInstance();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Select a monster");
+            }
+        }
     }
 }
