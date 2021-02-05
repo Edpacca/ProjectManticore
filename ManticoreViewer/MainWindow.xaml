@@ -94,11 +94,11 @@
             <TextBlock Grid.Column="1" Grid.Row="5" Text="Hit Points:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
             <TextBlock Grid.Column="1" Grid.Row="6" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
 
-            <ComboBox x:Name="nameComboBox" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="6" IsEditable="True"/>
+            <ComboBox x:Name="nameComboBox" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="6" IsEditable="True" VerticalAlignment="Center"/>
 
-            <TextBlock x:Name="ArmourClass" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <TextBlock x:Name="HitPoints" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.HitPoints, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <TextBlock x:Name="Speed" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="ArmourClass" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="HitPoints" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.HitPoints, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="Speed" Text="{Binding ElementName = nameComboBox, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <Image Source="{Binding ElementName = nameComboBox, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="10" Grid.Row="3" Width="Auto" Grid.RowSpan="5" Grid.ColumnSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Grid.Row="9" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
@@ -128,40 +128,54 @@
 
             <Button x:Name="addButton" Content="Add" Grid.Column="16" Click="AddButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
             <Button x:Name="removeButton" Content="Remove" Grid.Column="17" Click="RemoveButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
-            <Button x:Name="saveButton" Content="Save" Grid.Column="18" Click="SaveButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
-            <Button x:Name="loadButton" Content="Load" Grid.Column="19" Click="LoadButtonClick" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,5,5" BorderThickness="2" />
+            <!--<Button x:Name="saveButton" Content="S" Grid.Column="18" Click="SaveButtonClick" Grid.Row="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,47.5,5" BorderThickness="2" />-->
+            <!--<Button x:Name="LoadButton" Content="L" Grid.Column="18" Click="LoadButtonClick" Grid.Row="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="47.5,5,5,5" BorderThickness="2" />-->
+            <Button x:Name="addInstanceButton" Content="+" Grid.Column="18" Click="AddMonsterInstance" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,5,47.5,5" BorderThickness="2" />
+            <Button x:Name="removeInstanceButton" Content="-" Grid.Column="18" Click="AddMonsterInstance" Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="47.5,5,5,5" BorderThickness="2" />
 
-            <ListView x:Name="ActiveMonsters" ItemsSource="{Binding activeMonsters}" Grid.Column="16" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="11" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            <ListView x:Name="ActiveMonsters" ItemsSource="{Binding activeMonsters}" Grid.Column="16" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="11" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="1" Visibility="Visible" BorderThickness="1" MinHeight="0" HorizontalContentAlignment="Stretch" Background="{x:Null}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="270"/>
-                        <GridViewColumn Header="CR" DisplayMemberBinding="{Binding ChallengeRating}" Width="90"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        <GridViewColumn x:Name="numberColumn" Header="#" DisplayMemberBinding="{Binding Number, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="70"/>
                     </GridView>
                 </ListView.View>
             </ListView>
+            
+            <ListBox Grid.Row="3" Grid.RowSpan="10" Grid.Column="20" x:Name="monsterDuplicates" Margin="-20,0,10,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-            <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="21" Grid.RowSpan="12" Grid.ColumnSpan="10" Margin="-5,-5,-5,-5"></Border>
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1" Grid.Column="21" Grid.RowSpan="25" Grid.ColumnSpan="10" Margin="-5,-5,-5,-5"></Border>
 
-            <TextBlock Grid.Column="21" Grid.Row="1" Grid.ColumnSpan="6" FontWeight="Bold" Foreground="Brown" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Name, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin ="5,5,5,5"/>
+            <TextBlock Grid.Column="21" Grid.Row="1" Grid.ColumnSpan="8" Grid.RowSpan="2" FontWeight="Bold" FontSize="30" Foreground="Brown" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Name, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin ="5,0,5,5" VerticalAlignment="Top"/>
+            <TextBlock Grid.Column="21" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2" FontStyle="Italic" FontSize="18" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Meta, Mode =TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin ="5,10,5,0" VerticalAlignment="Bottom"/>
 
-            <TextBlock Grid.Column="21" Grid.Row="3" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="22" Grid.Row="3" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="23" Grid.Row="3" Text="CON" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="24" Grid.Row="3" Text="INT" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="25" Grid.Row="3" Text="WIS" FontWeight="Bold" Margin="5,5,5,5"/>
-            <TextBlock Grid.Column="26" Grid.Row="3" Text="CHA" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="21" Grid.Row="5" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="22" Grid.Row="5" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="23" Grid.Row="5" Text="CON" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="24" Grid.Row="5" Text="INT" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="25" Grid.Row="5" Text="WIS" FontWeight="Bold" Margin="5,5,5,5"/>
+            <TextBlock Grid.Column="26" Grid.Row="5" Text="CHA" FontWeight="Bold" Margin="5,5,5,5"/>
 
-            <Button Grid.Column="21" Grid.Row="4" x:Name="STR_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[0], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <Button Grid.Column="22" Grid.Row="4" x:Name="DEX_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[1], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <Button Grid.Column="23" Grid.Row="4" x:Name="CON_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <Button Grid.Column="24" Grid.Row="4" x:Name="INT_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <Button Grid.Column="25" Grid.Row="4" x:Name="WIS_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
-            <Button Grid.Column="26" Grid.Row="4" x:Name="CHA_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="21" Grid.Row="6" x:Name="STR_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[0], UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="22" Grid.Row="6" x:Name="DEX_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[1], UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="23" Grid.Row="6" x:Name="CON_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[2], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="24" Grid.Row="6" x:Name="INT_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[3], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="25" Grid.Row="6" x:Name="WIS_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
+            <Button Grid.Column="26" Grid.Row="6" x:Name="CHA_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
 
-            <TextBlock x:Name="activeHP" Grid.Column="30" Grid.Row="1" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints, UpdateSourceTrigger = PropertyChanged}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Margin="5,5,5,5"/>
-            <TextBox x:Name="currentHP" Grid.Column="29" Grid.Row="1" Text="{Binding ElementName =ActiveMonsters, Path =SelectedItem.CurrentHitPoints, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="28" Margin="5,5,5,5"/>
-            <ProgressBar x:Name="HPProgress" Grid.Row="2" Grid.Column="21" Grid.ColumnSpan="10" Minimum="0" Maximum="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints}" Value="{Binding ElementName=currentHP, Path=Text, Converter={StaticResource IntegerConverter}, UpdateSourceTrigger=PropertyChanged}">
+            <Image Source="Images/shield.png" Grid.Column="29" Grid.Row="1" Grid.RowSpan="2" />
+            <TextBlock x:Name="activeHP" Grid.Column="30" Grid.Row="3" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints, UpdateSourceTrigger = PropertyChanged}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="28" Margin="5,5,5,5"/>
+            <TextBox x:Name="currentHP" Grid.Column="29" Grid.Row="3" Text="{Binding ElementName =ActiveMonsters, Path =SelectedItem.CurrentHitPoints, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" FontSize="28" Margin="5,5" Padding="-5"/>
+            <ProgressBar x:Name="HPProgress" Grid.Row="4" Grid.Column="21" Grid.ColumnSpan="10" Height="15" VerticalAlignment="Top" Minimum="0" Maximum="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints}" Value="{Binding ElementName=currentHP, Path=Text, Converter={StaticResource IntegerConverter}, UpdateSourceTrigger=PropertyChanged}">
                 <ProgressBar.Foreground>
                     <MultiBinding Converter="{StaticResource ProgressToColourConverter}">
                         <Binding ElementName="HPProgress" Path="Value" />
@@ -170,16 +184,22 @@
                 </ProgressBar.Foreground>
             </ProgressBar>
 
-            <TextBlock x:Name="activeAC" Grid.Column="29" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBlock x:Name="activeSpeed" Grid.Column="29" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock x:Name="activeAC" Grid.Column="29" Grid.Row="1" Grid.RowSpan="2" Foreground="White" FontSize="30" FontWeight="Bold" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ArmourClass, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock x:Name="activeSpeed" Grid.Column="29" Grid.Row="6" Grid.ColumnSpan="2" FontSize="15" TextWrapping="Wrap" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Speed, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Center"/>
             
-            <TextBlock Grid.Column="28" Grid.Row="3" Text="AC:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="28" Grid.Row="1" Text="HP:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="28" Grid.Row="4" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <!--<TextBlock Grid.Column="28" Grid.Row="6" Text="AC:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+            <TextBlock Grid.Column="28" Grid.Row="3" Text="HP:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="28" Grid.Row="6" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button x:Name="hurtButton" Grid.Column="30" Grid.Row="5" Click="ApplyDamage" Content="Damage" FontWeight="Bold" Margin="5,5,5,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="DarkRed" Foreground="Bisque"/>
             <Button x:Name="healButton" Grid.Column="28" Grid.Row="5" Click="ApplyDamage" Content="Heal" FontWeight="Bold" Margin="5,5,5,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Bisque" Foreground="Green"/>
             <!--<Image Source="{Binding ElementName = ActiveMonsters, Path = SelectedItem.ImgURL, Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Grid.Column="28" Grid.Row="6" Width="Auto" Grid.RowSpan="6" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-            <TextBox x:Name="DamageBox" Grid.Column="29" Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="28" Margin="5,5,5,5" />
+            <TextBox x:Name="DamageBox" Grid.Column="29" Grid.Row="5" VerticalAlignment="Center" TextAlignment="Center" FontSize="28" Margin="5,0"/>
+
+            <!--<TextBlock Grid.Column="28" Grid.Row="7" Text="AC:" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+            <TextBlock Grid.Column="21" Grid.Row="3" Grid.ColumnSpan="2" Text="Languages:" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="23" Grid.Row="3" Grid.ColumnSpan="4" FontSize="14" TextWrapping="Wrap" Text="{Binding ElementName=ActiveMonsters, Path=SelectedItem.Languages, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="28" Grid.Row="7" Text="Senses:" FontWeight="Bold" Margin="5,0,0,0" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="29" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="2" FontSize="15" TextWrapping="Wrap" Text="{Binding ElementName=ActiveMonsters, Path=SelectedItem.Senses, UpdateSourceTrigger=PropertyChanged}" Margin="5" VerticalAlignment="Center" />
 
 
             <!--Dice roll Panel-->
@@ -244,19 +264,19 @@
 
             <TextBlock Grid.Column="1" Grid.Row="14" Text="Monster Creation" FontSize="32" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="10,0,0,10"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="16" Text="Name:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="17" Text="Armour Class:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="18" Text="Hit Points:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="19" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="16" Text="Name:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="17" Text="Armour Class:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="18" Text="Hit Points:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="19" Text="Speed:" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
 
-            <TextBox x:Name="entryName" Grid.Column="4" Grid.Row="16" Grid.ColumnSpan="6"/>
-            <TextBox x:Name="entryAC" Grid.Column="4" Grid.Row="17"/>
-            <TextBox x:Name="entryHP" Grid.Column="4" Grid.Row="18"/>
-            <TextBox x:Name="entrySpeed1" Grid.Column="4" Grid.Row="19"/>
-            <TextBox x:Name="entrySpeed2" Grid.Column="8" Grid.Row="19"/>
-            <TextBlock Grid.Column="5" Grid.Row="19" Text="ft.," FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="9" Grid.Row="19" Text="ft." FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <ComboBox x:Name="speed2ComboBox" Grid.Column="6" Grid.Row="19" Grid.ColumnSpan="2" IsEditable="True"/>
+            <TextBox x:Name="entryName" Grid.Column="3" Grid.Row="16" Grid.ColumnSpan="6" Margin="5"/>
+            <TextBox x:Name="entryAC" Grid.Column="3" Grid.Row="17" Margin="5"/>
+            <TextBox x:Name="entryHP" Grid.Column="3" Grid.Row="18" Margin="5"/>
+            <TextBox x:Name="entrySpeed1" Grid.Column="3" Grid.Row="19" Margin="5"/>
+            <TextBox x:Name="entrySpeed2" Grid.Column="7" Grid.Row="19" Margin="5"/>
+            <TextBlock Grid.Column="4" Grid.Row="19" Text="ft.," FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="8" Grid.Row="19" Text="ft." FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="speed2ComboBox" Grid.Column="5" Grid.Row="19" Grid.ColumnSpan="2" IsEditable="True" Margin="5"/>
 
             <TextBlock Grid.Column="2" Grid.Row="21" Text="STR" FontWeight="Bold" Margin="5,5,5,5"/>
             <TextBlock Grid.Column="3" Grid.Row="21" Text="DEX" FontWeight="Bold" Margin="5,5,5,5"/>
