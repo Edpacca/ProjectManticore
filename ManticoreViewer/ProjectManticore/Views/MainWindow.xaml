@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManticoreViewer"
         mc:Ignorable="d" FontSize="18" FontFamily="Book Antiqua" 
-        Title="Manticore Viewer" Height="1080" Width="1920" WindowState="Maximized">
+        Title="Manticore: Main" Height="1080" Width="1920" WindowState="Maximized">
 
     <Window.Resources>
         <local:IntegerConverter x:Key="IntegerConverter" />
@@ -17,9 +17,7 @@
     </Window.Background>-->
 
     <Grid>
-
         <Grid>
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="75" />
@@ -172,7 +170,7 @@
             <Button Grid.Column="25" Grid.Row="6" x:Name="WIS_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[4], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
             <Button Grid.Column="26" Grid.Row="6" x:Name="CHA_mod_active" Click="RollWithModifier" Content="{Binding ElementName = ActiveMonsters, Path = SelectedItem.Modifiers[5], Mode = TwoWay, UpdateSourceTrigger = PropertyChanged}" Margin="5,5,5,5"/>
 
-            <Image Source="Images/shield.png" Grid.Column="29" Grid.Row="1" Grid.RowSpan="2" />
+            <Image Source="/Images/shield.png" Grid.Column="29" Grid.Row="1" Grid.RowSpan="2" />
             <TextBlock x:Name="activeHP" Grid.Column="30" Grid.Row="3" Text="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints, UpdateSourceTrigger = PropertyChanged}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="28" Margin="5,5,5,5"/>
             <TextBox x:Name="currentHP" Grid.Column="29" Grid.Row="3" Text="{Binding ElementName =ActiveMonsters, Path =SelectedItem.CurrentHitPoints, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" FontSize="28" Margin="5,5" Padding="-5"/>
             <ProgressBar x:Name="HPProgress" Grid.Row="4" Grid.Column="21" Grid.ColumnSpan="10" Height="15" VerticalAlignment="Top" Minimum="0" Maximum="{Binding ElementName = ActiveMonsters, Path = SelectedItem.HitPoints}" Value="{Binding ElementName=currentHP, Path=Text, Converter={StaticResource IntegerConverter}, UpdateSourceTrigger=PropertyChanged}">
@@ -302,6 +300,9 @@
             
             <Button x:Name="createButton" Content="Save" Foreground="Brown" Background="BurlyWood" FontWeight="Bold" FontSize="40" BorderThickness="2"
                         Grid.Column="10" Grid.Row="23" Grid.RowSpan="2" Grid.ColumnSpan="5" Click="SaveMonster" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+            <Button x:Name="CampaignButton" Content="Campaign Manager" Foreground="Brown" Background="BurlyWood" FontWeight="Bold" FontSize="40" BorderThickness="2"
+                        Grid.Column="21" Grid.Row="23" Grid.RowSpan="2" Grid.ColumnSpan="8" Click="CampaignButton_Click" Margin="5,5,5,5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         </Grid>
     </Grid>

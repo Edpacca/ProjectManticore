@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
+using ManticoreViewer.ProjectManticore.Views;
 
 namespace ManticoreViewer
 {
@@ -19,16 +20,16 @@ namespace ManticoreViewer
         DiceRoller diceRoller = new DiceRoller();
         public ObservableCollection<string> rollResultList;
 
-
+        EncountersWindow encounters;
 
         public MainWindow()
         {
             InitializeComponent();
-            _monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
-            
-            _monsterDatabase = _monsterManager.MonsterDatabase ?? new List<Monster>();
+            //_monsterManager = new MonsterManager(diskDeserialiser, databaseDiskPath);
+            _monsterDatabase = new List<Monster>();
             activeMonsters = new ObservableCollection<Monster>();
             rollResultList = new ObservableCollection<string>();
+            encounters = new EncountersWindow();
             DataContext = this;
             Loaded += MainWindow_Loaded;
         }
@@ -249,6 +250,14 @@ namespace ManticoreViewer
             {
                 MessageBox.Show("Select a monster");
             }
+        }
+
+        private void CampaignButton_Click(object sender, RoutedEventArgs e)
+        {
+            //var campaignWindow = new CampaignWindow();
+            //campaignWindow.Show();
+
+            encounters.Show();
         }
     }
 }
