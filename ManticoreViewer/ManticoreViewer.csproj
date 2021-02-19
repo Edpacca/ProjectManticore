@@ -57,7 +57,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="ProjectManticore\Views\CampaignWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectManticore\Views\CreateMonsterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectManticore\Views\EncountersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProjectManticore\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -65,29 +77,38 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="ProjectManticore\Views\CampaignWindow.xaml.cs">
+      <DependentUpon>CampaignWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectManticore\Views\CreateMonsterWindow.xaml.cs">
+      <DependentUpon>CreateMonsterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectManticore\Views\EncountersWindow.xaml.cs">
+      <DependentUpon>EncountersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectManticore\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProgressToColourConverter.cs" />
-    <Compile Include="ProjectManticore\Dice.cs" />
-    <Compile Include="ProjectManticore\DiceEventArgs.cs" />
-    <Compile Include="ProjectManticore\DiceRollConsoleLogger.cs" />
-    <Compile Include="ProjectManticore\DiceRoller.cs" />
-    <Compile Include="ProjectManticore\DiskDeserialiser.cs" />
-    <Compile Include="ProjectManticore\DRollResult.cs" />
-    <Compile Include="ProjectManticore\IDiceRoller.cs" />
-    <Compile Include="ProjectManticore\IFileDeserialiser.cs" />
-    <Compile Include="ProjectManticore\ILogger.cs" />
-    <Compile Include="IntegerConverter.cs" />
-    <Compile Include="ProjectManticore\MonsterCopy.cs" />
-    <Compile Include="ProjectManticore\MonsterManager.cs" />
-    <Compile Include="ProjectManticore\Roller.cs" />
-    <Compile Include="ProjectManticore\RollResult.cs" />
-    <Compile Include="ProjectManticore\StatBlockParser.cs" />
-    <Compile Include="ProjectManticore\Monster.cs" />
+    <Compile Include="ProjectManticore\Converters\ProgressToColourConverter.cs" />
+    <Compile Include="ProjectManticore\Dice\Dice.cs" />
+    <Compile Include="ProjectManticore\Dice\DiceEventArgs.cs" />
+    <Compile Include="ProjectManticore\Dice\DiceRollConsoleLogger.cs" />
+    <Compile Include="ProjectManticore\Dice\DiceRoller.cs" />
+    <Compile Include="ProjectManticore\Utilities\DiskDeserialiser.cs" />
+    <Compile Include="ProjectManticore\Dice\DRollResult.cs" />
+    <Compile Include="ProjectManticore\Interfaces\IDiceRoller.cs" />
+    <Compile Include="ProjectManticore\Interfaces\IFileDeserialiser.cs" />
+    <Compile Include="ProjectManticore\Interfaces\ILogger.cs" />
+    <Compile Include="ProjectManticore\Converters\IntegerConverter.cs" />
+    <Compile Include="ProjectManticore\Monster\MonsterCopy.cs" />
+    <Compile Include="ProjectManticore\Monster\MonsterManager.cs" />
+    <Compile Include="ProjectManticore\Dice\Roller.cs" />
+    <Compile Include="ProjectManticore\Dice\RollResult.cs" />
+    <Compile Include="ProjectManticore\Monster\StatBlockParser.cs" />
+    <Compile Include="ProjectManticore\Monster\Monster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,5 +141,6 @@
   <ItemGroup>
     <Resource Include="Images\shield.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
