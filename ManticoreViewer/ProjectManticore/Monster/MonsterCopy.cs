@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ManticoreViewer
 {
-    public class MonsterCopy
+    public static class MonsterCopy
     {
         public static Monster CopyMonster(Monster monster)
         {
@@ -29,6 +29,5 @@ namespace ManticoreViewer
 
             return copiedMonster;
         }
-
     }
 }
